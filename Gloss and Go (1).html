@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gloss &amp; Go — We Care About Your Paint.</title>
+<meta name="description" content="Professional, paint-safe car care that comes to you. Book in under a minute — no app required.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B3D66;
+    --sky:#2E86C1;
+    --white:#FFFFFF;
+    --platinum:#C9CDD3;
+    --ink:#1B2733;
+    --muted:#5A6B7A;
+    --bg-soft:#F5F8FB;
+    --shadow: 0 20px 50px rgba(11,61,102,0.08);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    color:var(--navy);
+    margin:0 0 0.5em;
+  }
+  p{margin:0 0 1em; color:var(--muted);}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .container{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{position:relative;}
+  .section-pad{padding:96px 0;}
+  .eyebrow{
+    display:inline-block;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sky);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:15px 32px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:0.98rem;
+    cursor:pointer;
+    border:none;
+    overflow:hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+    font-family:'Inter', sans-serif;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--sky), var(--navy));
+    color:#fff;
+    box-shadow:0 12px 30px rgba(46,134,193,0.35);
+  }
+  .btn-primary:hover{ box-shadow:0 16px 38px rgba(11,61,102,0.4); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--navy);
+    border:1.5px solid rgba(11,61,102,0.25);
+  }
+  .btn-ghost:hover{ border-color:var(--navy); background:rgba(11,61,102,0.04); }
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.55);
+    transform:scale(0);
+    animation:rippleAnim .6s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes rippleAnim{ to{ transform:scale(3); opacity:0; } }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    background:rgba(255,255,255,0.82);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(11,61,102,0.06);
+    transition: box-shadow .3s ease;
+  }
+  header.scrolled{ box-shadow:0 4px 24px rgba(11,61,102,0.08); }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    font-size:1.35rem;
+    color:var(--navy);
+  }
+  .logo-mark{ width:30px; height:30px; }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:34px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .nav-links a{
+    font-size:0.94rem;
+    font-weight:500;
+    color:var(--ink);
+    position:relative;
+    padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:0; height:2px;
+    background:var(--sky);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-actions{ display:flex; align-items:center; gap:18px; }
+  .menu-toggle{ display:none; background:none; border:none; cursor:pointer; }
+  .login-link{
+    font-size:0.94rem;
+    font-weight:600;
+    color:var(--navy);
+    padding:8px 4px;
+    position:relative;
+  }
+  .login-link::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:2px;
+    width:0; height:2px;
+    background:var(--sky);
+    transition:width .25s ease;
+  }
+  .login-link:hover::after{ width:100%; }
+  /* These two items live inside the mobile dropdown only — on desktop
+     the same actions already appear in .nav-actions, so hide the
+     duplicates here to avoid double Login/Register links. */
+  .mobile-only-item{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:170px 0 120px;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(46,134,193,0.12), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(201,205,211,0.35), transparent 40%),
+      linear-gradient(180deg, #F7FAFD 0%, #FFFFFF 100%);
+    overflow:hidden;
+  }
+  .hero-bubbles{
+    position:absolute; inset:0;
+    z-index:0;
+    opacity:0.9;
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative; z-index:1;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:3.2rem;
+    line-height:1.12;
+    margin-bottom:22px;
+  }
+  .hero-sub{
+    font-size:1.15rem;
+    max-width:520px;
+    margin-bottom:32px;
+  }
+  .hero-cta-row{ display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:34px; }
+  .slogan-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 20px;
+    border-radius:999px;
+    background:rgba(11,61,102,0.06);
+    border:1px solid rgba(11,61,102,0.12);
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--navy);
+    font-size:1rem;
+  }
+  .hero-visual{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .hero-orb{
+    width:100%;
+    max-width:420px;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,0.9), rgba(46,134,193,0.25) 40%, rgba(11,61,102,0.55) 100%);
+    box-shadow: inset 0 0 60px rgba(255,255,255,0.4), 0 40px 80px rgba(11,61,102,0.25);
+    position:relative;
+    animation: floatY 6s ease-in-out infinite;
+  }
+  @keyframes floatY{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  .hero-orb::before{
+    content:'';
+    position:absolute;
+    top:14%; left:20%;
+    width:26%; height:16%;
+    background:rgba(255,255,255,0.75);
+    border-radius:50%;
+    filter:blur(2px);
+    transform:rotate(-20deg);
+  }
+
+  /* ---------- SOCIAL PROOF STRIP ---------- */
+  .proof-strip{
+    background:var(--navy);
+    color:#fff;
+    padding:40px 0;
+  }
+  .proof-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    text-align:center;
+  }
+  .proof-item .num{
+    font-family:'Playfair Display', serif;
+    font-size:2rem;
+    font-weight:700;
+    color:#fff;
+  }
+  .proof-item .label{
+    font-size:0.85rem;
+    color:rgba(255,255,255,0.7);
+    letter-spacing:0.03em;
+  }
+  .stars{ color:#F4C542; font-size:1.1rem; letter-spacing:2px; }
+
+  /* ---------- SECTION HEAD ---------- */
+  .section-head{
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 56px;
+  }
+  .section-head h2{ font-size:2.2rem; }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
+  }
+  .service-card{
+    background:var(--bg-soft);
+    border-radius:var(--radius);
+    padding:30px 22px;
+    text-align:left;
+    transition: transform .3s ease, box-shadow .3s ease;
+    border:1px solid rgba(11,61,102,0.05);
+  }
+  .service-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); background:#fff; }
+  .service-icon{
+    width:46px; height:46px;
+    margin-bottom:18px;
+    color:var(--sky);
+  }
+  .service-card h3{ font-size:1.05rem; margin-bottom:8px; }
+  .service-card p{ font-size:0.9rem; margin-bottom:0; }
+  .badge{
+    display:inline-block;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--sky);
+    background:rgba(46,134,193,0.1);
+    padding:4px 10px;
+    border-radius:999px;
+    margin-bottom:14px;
+  }
+  .services-cta{ text-align:center; margin-top:44px; }
+
+  /* ---------- PLANS ---------- */
+  .plans-section{ background:var(--bg-soft); }
+  .plans-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .plan-card{
+    background:#fff;
+    border-radius:var(--radius);
+    padding:38px 30px;
+    box-shadow:var(--shadow);
+    position:relative;
+    border:1px solid rgba(11,61,102,0.06);
+    transition:transform .3s ease;
+  }
+  .plan-card:hover{ transform:translateY(-6px); }
+  .plan-card.featured{
+    border:2px solid var(--sky);
+    transform:scale(1.04);
+  }
+  .plan-card.featured:hover{ transform:scale(1.04) translateY(-6px); }
+  .plan-name{ font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--navy); margin-bottom:6px;}
+  .plan-tag{ color:var(--muted); font-size:0.9rem; margin-bottom:20px; }
+  .plan-features{ list-style:none; padding:0; margin:0 0 26px; }
+  .plan-features li{
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:0.92rem; color:var(--ink);
+    margin-bottom:12px;
+  }
+  .plan-features li svg{ width:18px; height:18px; flex-shrink:0; margin-top:2px; color:var(--sky); }
+  .popular-flag{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg, var(--sky), var(--navy));
+    color:#fff; font-size:0.72rem; font-weight:700;
+    padding:6px 16px; border-radius:999px; letter-spacing:0.04em;
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:28px;
+    position:relative;
+  }
+  .step-card{ text-align:center; padding:0 10px; }
+  .step-num{
+    width:56px; height:56px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--sky), var(--navy));
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif;
+    font-size:1.3rem; font-weight:700;
+    margin:0 auto 20px;
+    box-shadow:0 10px 24px rgba(46,134,193,0.35);
+  }
+  .step-card h3{ font-size:1.05rem; }
+  .step-card p{ font-size:0.9rem; }
+
+  /* ---------- WHY US ---------- */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .why-card{
+    display:flex; gap:16px;
+    padding:26px;
+    border-radius:var(--radius);
+    background:#fff;
+    border:1px solid rgba(11,61,102,0.06);
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+  .why-card:hover{ box-shadow:var(--shadow); transform:translateY(-4px); }
+  .why-icon{
+    width:42px; height:42px; flex-shrink:0;
+    color:var(--sky);
+  }
+  .why-card h3{ font-size:1rem; margin-bottom:6px; }
+  .why-card p{ font-size:0.88rem; margin-bottom:0; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-section{ background:var(--navy); color:#fff; overflow:hidden; position:relative; }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:flex-start;
+  }
+  .contact-section .section-head h2{ color:#fff; }
+  .contact-section .eyebrow{ color:var(--platinum); }
+  .contact-info p{ color:rgba(255,255,255,0.75); }
+  .trust-list{ list-style:none; padding:0; margin:26px 0 0; }
+  .trust-list li{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.92rem; color:rgba(255,255,255,0.85);
+    margin-bottom:12px;
+  }
+  .trust-list li svg{ width:18px; height:18px; color:var(--platinum); flex-shrink:0; }
+  form{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--radius);
+    padding:32px;
+    backdrop-filter:blur(6px);
+  }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  label{
+    display:block;
+    font-size:0.82rem;
+    color:rgba(255,255,255,0.7);
+    margin-bottom:6px;
+  }
+  input, select, textarea{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+    font-family:'Inter', sans-serif;
+    font-size:0.94rem;
+    margin-bottom:18px;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  input::placeholder, textarea::placeholder{ color:rgba(255,255,255,0.45); }
+  input:focus, select:focus, textarea:focus{
+    outline:none;
+    border-color:var(--sky);
+    background:rgba(255,255,255,0.12);
+  }
+  select option{ color:#111; }
+  .form-msg{
+    font-size:0.88rem;
+    margin-top:12px;
+    color:#8be08b;
+    display:none;
+  }
+  .form-msg.show{ display:block; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#082A47;
+    color:rgba(255,255,255,0.65);
+    padding:56px 0 28px;
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:40px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .footer-logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Playfair Display', serif;
+    font-size:1.2rem;
+    color:#fff;
+    margin-bottom:10px;
+  }
+  .footer-cols{ display:flex; gap:60px; flex-wrap:wrap; }
+  .footer-col h4{
+    color:#fff; font-size:0.85rem; text-transform:uppercase;
+    letter-spacing:0.06em; margin-bottom:16px; font-family:'Inter',sans-serif; font-weight:600;
+  }
+  .footer-col a{
+    display:block; font-size:0.9rem; margin-bottom:10px;
+    color:rgba(255,255,255,0.6); transition:color .2s ease;
+  }
+  .footer-col a:hover{ color:#fff; }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+    padding-top:26px;
+    font-size:0.85rem;
+  }
+  .footer-slogan{ font-family:'Playfair Display', serif; font-style:italic; color:var(--platinum); }
+  .social-icons{ display:flex; gap:14px; }
+  .social-icons a{
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; transition: background .2s ease;
+  }
+  .social-icons a:hover{ background:var(--sky); }
+  .social-icons svg{ width:16px; height:16px; }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- REGISTER MODAL ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(11,61,102,0.45);
+    backdrop-filter:blur(4px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+    padding:20px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{
+    background:#fff;
+    border-radius:var(--radius);
+    max-width:520px;
+    width:100%;
+    padding:40px;
+    box-shadow:0 30px 80px rgba(11,61,102,0.35);
+    position:relative;
+    animation: modalIn .3s ease;
+  }
+  @keyframes modalIn{ from{ opacity:0; transform:translateY(16px) scale(0.98); } to{ opacity:1; transform:translateY(0) scale(1); } }
+  .modal-close{
+    position:absolute; top:18px; right:18px;
+    background:none; border:none; cursor:pointer;
+    color:var(--muted);
+    width:32px; height:32px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+    transition:background .2s ease;
+  }
+  .modal-close:hover{ background:var(--bg-soft); }
+  .modal-box h2{ font-size:1.5rem; margin-bottom:6px; }
+  .modal-box > p{ margin-bottom:26px; }
+  .register-options{ display:flex; flex-direction:column; gap:14px; }
+  .register-option{
+    display:flex; align-items:center; gap:16px;
+    text-align:left;
+    width:100%;
+    padding:20px;
+    border-radius:14px;
+    border:1.5px solid rgba(11,61,102,0.12);
+    background:var(--bg-soft);
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+    transition: border-color .2s ease, transform .2s ease, background .2s ease;
+  }
+  .register-option:hover{
+    border-color:var(--sky);
+    background:#fff;
+    transform:translateY(-2px);
+    box-shadow:var(--shadow);
+  }
+  .register-option .opt-icon{
+    width:44px; height:44px; flex-shrink:0;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--sky), var(--navy));
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .register-option .opt-icon svg{ width:22px; height:22px; }
+  .register-option .opt-title{ font-weight:700; color:var(--navy); font-size:1rem; margin-bottom:2px; }
+  .register-option .opt-desc{ font-size:0.85rem; color:var(--muted); }
+
+  /* ---------- TOAST ---------- */
+  .toast{
+    position:fixed;
+    bottom:30px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--navy);
+    color:#fff;
+    padding:14px 24px;
+    border-radius:12px;
+    font-size:0.9rem;
+    box-shadow:0 14px 34px rgba(11,61,102,0.35);
+    z-index:3000;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+    max-width:90vw;
+    text-align:center;
+  }
+  .toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; }
+    .services-grid{ grid-template-columns:repeat(2,1fr); }
+    .plans-grid{ grid-template-columns:1fr; }
+    .plan-card.featured{ transform:none; }
+    .plan-card.featured:hover{ transform:translateY(-6px); }
+    .steps-grid{ grid-template-columns:repeat(2,1fr); }
+    .why-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .proof-grid{ grid-template-columns:repeat(2,1fr); }
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background:#fff; flex-direction:column;
+      padding:20px 32px; gap:18px;
+      box-shadow:0 12px 24px rgba(11,61,102,0.1);
+      display:none;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-links .mobile-only-item{ display:block; }
+    .menu-toggle{ display:block; }
+    .nav-actions .btn{ display:none; }
+    .nav-actions .login-link{ display:none; }
+  }
+  @media (max-width: 640px){
+    .hero h1{ font-size:2.2rem; }
+    .services-grid{ grid-template-columns:1fr; }
+    .form-row{ grid-template-columns:1fr; }
+    .section-pad{ padding:64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav>
+    <a href="#top" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 3C20 3 8 17.5 8 25.5C8 32.4036 13.3726 37 20 37C26.6274 37 32 32.4036 32 25.5C32 17.5 20 3 20 3Z" fill="url(#dropGrad)"/>
+        <path d="M14 24C14 24 15.5 21 20 21" stroke="white" stroke-width="1.6" stroke-linecap="round" opacity="0.7"/>
+        <defs>
+          <linearGradient id="dropGrad" x1="8" y1="3" x2="32" y2="37" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2E86C1"/>
+            <stop offset="1" stop-color="#0B3D66"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      Gloss &amp; Go
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#plans">Plans</a></li>
+      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="mobile-only-item"><a href="#" id="loginNavLink" class="login-link">Log In</a></li>
+      <li class="mobile-only-item"><a href="#" id="registerNavLink">Register</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="login-link" id="loginNavBtn">Log In</a>
+      <a href="#" class="btn btn-ghost" id="registerNavBtn">Register</a>
+      <a href="#" class="btn btn-primary rippleBtn book-now-btn">Book a Wash</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B3D66" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal-box">
+    <button class="modal-close" id="registerModalClose" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2>Join Gloss &amp; Go</h2>
+    <p>Tell us which side of the shine you're on.</p>
+    <div class="register-options">
+      <button class="register-option placeholder-btn" data-msg="This will take you to client registration soon.">
+        <span class="opt-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <span>
+          <span class="opt-title">Register as a User</span><br>
+          <span class="opt-desc">Book washes for your car, wherever you park.</span>
+        </span>
+      </button>
+      <button class="register-option placeholder-btn" data-msg="This will take you to washer registration soon.">
+        <span class="opt-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9h3V6h-3a4 4 0 00-4 4v2H8v3h2v6h3v-6h3l1-3h-4v-2a1 1 0 011-1z"/></svg>
+        </span>
+        <span>
+          <span class="opt-title">Register as a Washer</span><br>
+          <span class="opt-desc">Join as a technician and get matched with clients.</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <svg class="hero-bubbles" viewBox="0 0 1180 700" preserveAspectRatio="xMidYMid slice">
+      <circle cx="120" cy="120" r="90" fill="#2E86C1" opacity="0.06"/>
+      <circle cx="1050" cy="80" r="140" fill="#C9CDD3" opacity="0.18"/>
+      <circle cx="980" cy="480" r="70" fill="#2E86C1" opacity="0.08"/>
+      <circle cx="60" cy="560" r="60" fill="#0B3D66" opacity="0.05"/>
+      <circle cx="560" cy="30" r="40" fill="#2E86C1" opacity="0.10"/>
+    </svg>
+    <div class="container hero-inner">
+      <div class="reveal in">
+        <span class="eyebrow">On-Demand Car Care</span>
+        <h1>Professional Car Care,<br>Wherever You Park.</h1>
+        <p class="hero-sub">Book a paint-safe wash for your home, office, or compound in under a minute — no app download, no guessing who's showing up. Just a vetted, top-rated technician bringing the shine to you.</p>
+        <div class="hero-cta-row">
+          <a href="#" class="btn btn-primary rippleBtn book-now-btn">Book a Wash</a>
+          <a href="#how-it-works" class="btn btn-ghost">See How It Works</a>
+        </div>
+        <div class="slogan-badge">&ldquo;We Care About Your Paint.&rdquo;</div>
+      </div>
+      <div class="hero-visual reveal in">
+        <div class="hero-orb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF STRIP -->
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <div class="label">Rated by real clients</div>
+      </div>
+      <div class="proof-item">
+        <div class="num">100%</div>
+        <div class="label">Paint-safe process, every tier</div>
+      </div>
+      <div class="proof-item">
+        <div class="num">&lt;1 min</div>
+        <div class="label">To book — no app required</div>
+      </div>
+      <div class="proof-item">
+        <div class="num">Top-Rated</div>
+        <div class="label">Technicians matched by rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section-pad" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Services</span>
+        <h2>A Tier For Every Wash Day</h2>
+        <p>Every service, from a quick refresh to the full treatment, follows the same paint-safe process — correct wash mitts, pH-neutral soap, no dry-wiping.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none"><path d="M20 4C20 4 10 16.5 10 23.5C10 29.5 14.5 34 20 34C25.5 34 30 29.5 30 23.5C30 16.5 20 4 20 4Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span class="badge">Fast</span>
+          <h3>Quick Exterior Wash</h3>
+          <p>A fast, thorough clean of the outside of your vehicle — perfect between full details.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none"><rect x="8" y="12" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 18H32" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span class="badge">Interior</span>
+          <h3>Interior Cleaning</h3>
+          <p>Dashboard, carpets, seats, and every interior surface refreshed and sanitized.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none"><path d="M20 4C20 4 10 16.5 10 23.5C10 29.5 14.5 34 20 34C25.5 34 30 29.5 30 23.5C30 16.5 20 4 20 4Z" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="18" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.2" opacity="0.6"/></svg>
+          <span class="badge">Popular</span>
+          <h3>Full Car Wash</h3>
+          <p>Exterior wash and interior cleaning together — our most complete standard package.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none"><path d="M6 24C10 20 14 28 18 24C22 20 26 28 30 24C32 22 34 22 34 22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="badge">Eco</span>
+          <h3>Waterless Car Wash</h3>
+          <p>A specialized paint-safe clean using low-water products — ideal where water access is limited.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6L23.5 16.5H34L25.5 22.5L29 33L20 26.5L11 33L14.5 22.5L6 16.5H16.5L20 6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          <span class="badge">Premium</span>
+          <h3>Premium Package</h3>
+          <p>Full wash, tire &amp; glass cleaning, sanitization, and paint-safe wax — the complete experience.</p>
+        </div>
+      </div>
+      <div class="services-cta reveal">
+        <a href="#contact" class="btn btn-ghost">View Full Pricing &amp; Add-Ons</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section class="section-pad plans-section" id="plans">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Subscriptions</span>
+        <h2>Predictable Shine, Every Month</h2>
+        <p>Repeat clients save with a monthly plan — included washes, ongoing discounts, and cancel anytime.</p>
+      </div>
+      <div class="plans-grid">
+        <div class="plan-card reveal">
+          <div class="plan-name">Basic</div>
+          <div class="plan-tag">2 washes / month</div>
+          <ul class="plan-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>10% off every wash</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Quick Exterior or Waterless tier</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Cancel anytime</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost" style="width:100%;">Choose Basic</a>
+        </div>
+        <div class="plan-card featured reveal">
+          <div class="popular-flag">Most Popular</div>
+          <div class="plan-name">Plus</div>
+          <div class="plan-tag">4 washes / month</div>
+          <ul class="plan-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>15% off + 1 free add-on / month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Full Car Wash tier included</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Cancel anytime</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;">Choose Plus</a>
+        </div>
+        <div class="plan-card reveal">
+          <div class="plan-name">Premium</div>
+          <div class="plan-tag">6 washes / month</div>
+          <ul class="plan-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>20% off + priority matching</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Premium Package tier + free add-ons</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Cancel anytime</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost" style="width:100%;">Choose Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-pad" id="how-it-works">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">How It Works</span>
+        <h2>From Booking to Shine in Four Steps</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num">1</div>
+          <h3>Choose Your Service</h3>
+          <p>Pick a tier and your predefined area — no address hunting required.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">2</div>
+          <h3>Get Matched</h3>
+          <p>We match you with an available, top-rated technician near you.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">3</div>
+          <h3>They Come to You</h3>
+          <p>Home, office, or compound — your technician travels to your location.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">4</div>
+          <h3>Pay &amp; Rate</h3>
+          <p>Pay securely online and rate your experience when it's done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section-pad" id="why-us" style="background:var(--bg-soft);">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Why Gloss &amp; Go</span>
+        <h2>Care and Convenience, Built In</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M20 4C20 4 10 16.5 10 23.5C10 29.5 14.5 34 20 34C25.5 34 30 29.5 30 23.5C30 16.5 20 4 20 4Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div><h3>Paint-Safe on Every Tier</h3><p>The same careful process regardless of which service you book.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="1.6"/><path d="M20 12V20L25 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div><h3>Book in Under a Minute</h3><p>No app download — book straight from your browser.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M10 30V16L20 8L30 16V30" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <div><h3>We Come to You</h3><p>Home, work, compound, or parking lot — you don't move a muscle.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6L23.5 16.5H34L25.5 22.5L29 33L20 26.5L11 33L14.5 22.5L6 16.5H16.5L20 6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          <div><h3>Rating-Based Matching</h3><p>Higher-rated technicians get priority, so quality stays consistent.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><rect x="9" y="14" width="22" height="15" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M9 19H31" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div><h3>Secure Online Payment</h3><p>Pay by card or wallet through a PCI-compliant gateway.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M8 12H32V26H16L10 31V26H8V12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <div><h3>Private In-App Chat</h3><p>Coordinate access with your technician without sharing personal numbers.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-pad contact-section" id="contact">
+    <svg class="hero-bubbles" viewBox="0 0 1180 500" preserveAspectRatio="xMidYMid slice">
+      <circle cx="1050" cy="60" r="120" fill="#2E86C1" opacity="0.12"/>
+      <circle cx="80" cy="420" r="90" fill="#C9CDD3" opacity="0.1"/>
+    </svg>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Get In Touch</span>
+        <h2>Ready When You Are</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <p>Have a question before you book, or want to set up service for a compound or office fleet? Send us a message and we'll typically reply within one business day — or skip the wait and book your first wash right now.</p>
+          <a href="#" class="btn btn-primary rippleBtn book-now-btn" style="margin-bottom:26px;">Book a Wash Instead</a>
+          <ul class="trust-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>Technicians vetted and rating-matched</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M8 9V6a4 4 0 018 0v3"/></svg>PCI-compliant secure payment</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Paint-safe process on every booking</li>
+          </ul>
+        </div>
+        <form id="contactForm" class="reveal">
+          <div class="form-row">
+            <div>
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="Your name" required>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="you@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" placeholder="+20 1XX XXX XXXX">
+            </div>
+            <div>
+              <label for="area">Area</label>
+              <select id="area">
+                <option value="">Select your area</option>
+                <option>New Cairo</option>
+                <option>Sheikh Zayed</option>
+                <option>Maadi</option>
+                <option>Zamalek</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" placeholder="Tell us what you need..."></textarea>
+          <button type="submit" class="btn btn-primary rippleBtn" style="width:100%;">Send Message</button>
+          <div class="form-msg" id="formMsg">Thanks — we've received your message and will reply within one business day.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <svg width="26" height="26" viewBox="0 0 40 40" fill="none"><path d="M20 3C20 3 8 17.5 8 25.5C8 32.4036 13.3726 37 20 37C26.6274 37 32 32.4036 32 25.5C32 17.5 20 3 20 3Z" fill="url(#footGrad)"/><defs><linearGradient id="footGrad" x1="8" y1="3" x2="32" y2="37" gradientUnits="userSpaceOnUse"><stop stop-color="#2E86C1"/><stop offset="1" stop-color="#C9CDD3"/></linearGradient></defs></svg>
+          Gloss &amp; Go
+        </div>
+        <p style="max-width:280px; color:rgba(255,255,255,0.55); font-size:0.88rem;">Professional, paint-safe car care that comes to you.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#services">Services</a>
+          <a href="#plans">Plans</a>
+          <a href="#why-us">Why Us</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-slogan">&ldquo;We Care About Your Paint.&rdquo;</div>
+      <div class="social-icons">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9h3V6h-3a4 4 0 00-4 4v2H8v3h2v6h3v-6h3l1-3h-4v-2a1 1 0 011-1z"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4v9a4 4 0 11-4-4"/><path d="M16 4c0 2.5 2 4.5 4 4.5"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header shadow on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Ripple effect on buttons
+  document.querySelectorAll('.rippleBtn').forEach(btn => {
+    btn.addEventListener('click', function(e){
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Contact form (demo submit)
+  const form = document.getElementById('contactForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    formMsg.classList.add('show');
+    form.reset();
+    setTimeout(() => formMsg.classList.remove('show'), 6000);
+  });
+
+  // Toast helper
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  // Register modal
+  const registerModal = document.getElementById('registerModal');
+  const registerNavLink = document.getElementById('registerNavLink');
+  const registerNavBtn = document.getElementById('registerNavBtn');
+  const loginNavLink = document.getElementById('loginNavLink');
+  const loginNavBtn = document.getElementById('loginNavBtn');
+  const registerModalClose = document.getElementById('registerModalClose');
+
+  function openRegisterModal(e){
+    if(e) e.preventDefault();
+    registerModal.classList.add('open');
+    navLinks.classList.remove('open');
+  }
+  function closeRegisterModal(){
+    registerModal.classList.remove('open');
+  }
+  registerNavLink.addEventListener('click', openRegisterModal);
+  registerNavBtn.addEventListener('click', openRegisterModal);
+
+  // Log In is a separate destination from Register/Book a Wash — for
+  // visitors who already have an account (client or washer), not new
+  // sign-ups. No login page exists yet, so this stays a placeholder
+  // toast; once it does, point these two elements at that URL instead.
+  function goToLogin(e){
+    e.preventDefault();
+    navLinks.classList.remove('open');
+    showToast("This will take you to the login page soon.");
+  }
+  loginNavLink.addEventListener('click', goToLogin);
+  loginNavBtn.addEventListener('click', goToLogin);
+  registerModalClose.addEventListener('click', closeRegisterModal);
+  registerModal.addEventListener('click', (e) => {
+    if(e.target === registerModal) closeRegisterModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeRegisterModal();
+  });
+
+  // "Book a Wash" skips the Register modal entirely and goes straight to
+  // client (user) registration — booking requires a user account, never
+  // a washer account, so there's no choice to make here. Once the real
+  // client registration URL exists, swap the showToast call below for a
+  // redirect: window.location.href = "https://app.glossandgo.com/register".
+  document.querySelectorAll('.book-now-btn').forEach(btn => {
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      showToast("Booking a wash requires a free client account — taking you to client registration.");
+    });
+  });
+
+  // "Register as a User" / "Register as a Washer" have no real pages
+  // yet, so they just confirm the click instead of navigating away.
+  document.querySelectorAll('.placeholder-btn').forEach(btn => {
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      showToast(this.dataset.msg || "This link isn't wired up yet.");
+    });
+  });
+</script>
+
+</body>
+</html>
